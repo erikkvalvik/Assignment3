@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Assignment3.Models;
+using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment3
 {
@@ -28,6 +31,9 @@ namespace Assignment3
         {
 
             services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
+            services.AddDbContext<CinemaDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Assignment3", Version = "v1" });

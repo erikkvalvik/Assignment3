@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -8,11 +9,16 @@ namespace Assignment3.Models
 {
     public class CinemaDbContext : DbContext
     {
+        //Tables
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Franchise> Franchises { get; set; }
         public DbSet<CharacterMovie> CharacterMovies { get; set; }
 
+        public CinemaDbContext([NotNullAttribute] DbContextOptions options) : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=ND-5CG9030M8H\\SQLEXPRESS;Initial Catalog=CinemaDb;Integrated Security=True;Encrypt=False;");
