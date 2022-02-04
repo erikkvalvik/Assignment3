@@ -8,14 +8,11 @@ using System.Threading.Tasks;
 namespace Assignment3.Models
 {
     [Keyless]
-    public class testingTable
+    public class CharacterMovie
     {
-        [ForeignKey("Movie")]
-        public int MovieId { get; set; }
-        public Movie Movie { get; set; }
-
-        [ForeignKey("Character")]
         public int CharacterId { get; set; }
         public Character Character { get; set; }
+        public int MovieId { get; set; }
+        public Movie Movie { get; set; }
     }
 }

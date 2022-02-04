@@ -11,7 +11,7 @@ namespace Assignment3.Models
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Character> Characters { get; set; }
         public DbSet<Franchise> Franchises { get; set; }
-        //public DbSet<testingTable> MovieCharacters { get; set; }
+        public DbSet<CharacterMovie> CharacterMovies { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -20,6 +20,16 @@ namespace Assignment3.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<CharacterMovie>()
+                        .HasKey(cm => new { cm.CharacterId, cm.MovieId });
+            modelBuilder.Entity<CharacterMovie>()
+                        .HasOne(cm => cm.Character)
+                        .WithMany(c => c.CharacterMovies)
+                        .HasForeignKey(cm => cm.CharacterId);
+            modelBuilder.Entity<CharacterMovie>()
+                        .HasOne(cm => cm.Movie)
+                        .WithMany(m => m.CharacterMovies)
+                        .HasForeignKey(cm => cm.MovieId);
         }
     }
 }

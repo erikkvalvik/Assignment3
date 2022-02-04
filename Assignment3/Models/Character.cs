@@ -8,10 +8,10 @@ namespace Assignment3.Models
 {
     public class Character
     {
-        public Character()
-        {
-            this.Movies = new HashSet<Movie>();
-        }
+        //public Character()
+        //{
+        //    this.Movies = new HashSet<Movie>();
+        //}
         [Key]
         public int Id { get; set; }
         public string CharacterName { get; set; }
@@ -19,6 +19,6 @@ namespace Assignment3.Models
         public string Gender { get; set; }
         public string Picture { get; set; }
 
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual ICollection<CharacterMovie> CharacterMovies { get; set; }
     }
 }

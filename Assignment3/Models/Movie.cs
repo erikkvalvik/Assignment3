@@ -9,11 +9,11 @@ namespace Assignment3.Models
 {
     public class Movie
     {
-        public Movie()
-        {
-            this.Characters = new HashSet<Character>();
-        }
-        public virtual ICollection<Character> Characters { get; set; }
+        //public Movie()
+        //{
+        //    this.Characters = new HashSet<Character>();
+        //}
+        public virtual ICollection<CharacterMovie> CharacterMovies { get; set; }
         public int Id { get; set; }
         public string Title { get; set; }
         public string Genre { get; set; }
