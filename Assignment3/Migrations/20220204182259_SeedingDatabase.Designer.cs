@@ -4,14 +4,16 @@ using Assignment3.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Assignment3.Migrations
 {
     [DbContext(typeof(CinemaDbContext))]
-    partial class CinemaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220204182259_SeedingDatabase")]
+    partial class SeedingDatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -138,93 +140,6 @@ namespace Assignment3.Migrations
                     b.HasIndex("MovieId");
 
                     b.ToTable("CharacterMovies");
-
-                    b.HasData(
-                        new
-                        {
-                            CharacterId = 1,
-                            MovieId = 1
-                        },
-                        new
-                        {
-                            CharacterId = 2,
-                            MovieId = 1
-                        },
-                        new
-                        {
-                            CharacterId = 2,
-                            MovieId = 2
-                        },
-                        new
-                        {
-                            CharacterId = 3,
-                            MovieId = 3
-                        },
-                        new
-                        {
-                            CharacterId = 4,
-                            MovieId = 1
-                        },
-                        new
-                        {
-                            CharacterId = 5,
-                            MovieId = 4
-                        },
-                        new
-                        {
-                            CharacterId = 5,
-                            MovieId = 5
-                        },
-                        new
-                        {
-                            CharacterId = 5,
-                            MovieId = 6
-                        },
-                        new
-                        {
-                            CharacterId = 6,
-                            MovieId = 4
-                        },
-                        new
-                        {
-                            CharacterId = 6,
-                            MovieId = 5
-                        },
-                        new
-                        {
-                            CharacterId = 6,
-                            MovieId = 6
-                        },
-                        new
-                        {
-                            CharacterId = 7,
-                            MovieId = 4
-                        },
-                        new
-                        {
-                            CharacterId = 7,
-                            MovieId = 5
-                        },
-                        new
-                        {
-                            CharacterId = 7,
-                            MovieId = 6
-                        },
-                        new
-                        {
-                            CharacterId = 8,
-                            MovieId = 7
-                        },
-                        new
-                        {
-                            CharacterId = 9,
-                            MovieId = 7
-                        },
-                        new
-                        {
-                            CharacterId = 10,
-                            MovieId = 7
-                        });
                 });
 
             modelBuilder.Entity("Assignment3.Models.Franchise", b =>
