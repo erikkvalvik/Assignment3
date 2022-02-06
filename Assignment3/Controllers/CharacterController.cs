@@ -1,7 +1,6 @@
 ﻿using Assignment3.Models;
-using Assignment3.Models.DTO.Movie;
+using Assignment3.Models.DTO.Character;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,65 +11,63 @@ using System.Threading.Tasks;
 
 namespace Assignment3.Controllers
 {
-    [Route("api/movies")]
+    [Route("api/characters")]
     [ApiController]
     [Produces(MediaTypeNames.Application.Json)]
     [Consumes(MediaTypeNames.Application.Json)]
     [ApiConventionType(typeof(DefaultApiConventions))]
-
-    public class MovieController : Controller
+    public class CharacterController : Controller
     {
         private readonly CinemaDbContext _context;
         // Add automapper via DI
         private readonly IMapper _mapper;
 
-        public MovieController(CinemaDbContext context, IMapper mapper)
+        public CharacterController(CinemaDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
         /// <summary>
-        /// Gets all the movies in the database.
+        /// Gets all characters.
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MovieReadDTO>>> GetMovies()
+        public async Task<ActionResult<IEnumerable<CharacterReadDTO>>> GetCharacters()
         {
-            return _mapper.Map<List<MovieReadDTO>>(await _context.Movies.ToListAsync());
+            return _mapper.Map<List<CharacterReadDTO>>(await _context.Characters.ToListAsync());
         }
 
         /// <summary>
-        /// Gets a specific movie by its Id
+        /// Gets character by Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<MovieReadDTO>> GetMovie(int id)
+        public async Task<ActionResult<CharacterReadDTO>> GetCharacter(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if(movie == null)
+            var character = await _context.Characters.FindAsync(id);
+            if(character == null)
             {
                 return NotFound();
             }
-            return _mapper.Map<MovieReadDTO>(movie);
+            return _mapper.Map<CharacterReadDTO>(character);
         }
-
         /// <summary>
-        /// Updates a movie.
+        /// Updates a character by Id.
         /// </summary>
         /// <param name="id"></param>
-        /// <param name="movie"></param>
+        /// <param name="character"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMovie(int id, MovieEditDTO movie)
+        public async Task<IActionResult> PutCharacter(int id, CharacterEditDTO character)
         {
-            if(id != movie.Id)
+            if(id != character.Id)
             {
                 return BadRequest();
             }
-            Movie domainMovie = _mapper.Map<Movie>(movie);
-            _context.Entry(domainMovie).State = EntityState.Modified;
+            Character domainCharacter = _mapper.Map<Character>(character);
+            _context.Entry(domainCharacter).State = EntityState.Modified;
 
             try
             {
@@ -78,7 +75,7 @@ namespace Assignment3.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MovieExists(id))
+                if (!CharacterExists(id))
                 {
                     return NotFound();
                 }
@@ -90,43 +87,43 @@ namespace Assignment3.Controllers
             return NoContent();
         }
         /// <summary>
-        /// Adds a new movie to the database.
+        /// Creates a new character.
         /// </summary>
-        /// <param name="movie"></param>
+        /// <param name="character"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<ActionResult<Movie>> PostMovie(Movie movie)
+        public async Task<ActionResult<Character>> PostCharacter(Character character)
         {
-            _context.Movies.Add(movie);
+            _context.Characters.Add(character);
             await _context.SaveChangesAsync();
-            return CreatedAtAction("GetMovie", new { id = movie.Id }, movie);
+            return CreatedAtAction("GetCharacter", new { id = character.Id }, character);
         }
         /// <summary>
-        /// Deletes a movie by Id.
+        /// Deletes character by Id.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMovie(int id)
+        public async Task<IActionResult> DeleteCharacter(int id)
         {
-            var movie = await _context.Movies.FindAsync(id);
-            if(movie == null)
+            var character = await _context.Characters.FindAsync(id);
+            if(character == null)
             {
                 return NotFound();
             }
-            _context.Movies.Remove(movie);
+            _context.Characters.Remove(character);
             await _context.SaveChangesAsync();
             return NoContent();
         }
 
         /// <summary>
-        /// Checks if a movie exists by Id.
+        /// Checks if character exists by Id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>True if any matches in DB, False if not.</returns>
-        private bool MovieExists(int id)
+        /// <returns></returns>
+        private bool CharacterExists(int id)
         {
-            return _context.Movies.Any(e => e.Id == id);
+            return _context.Characters.Any(e => e.Id == id);
         }
     }
 }
