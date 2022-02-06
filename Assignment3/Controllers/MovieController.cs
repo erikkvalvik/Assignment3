@@ -39,6 +39,7 @@ namespace Assignment3.Controllers
         {
             return _mapper.Map<List<MovieReadDTO>>(await _context.Movies.ToListAsync());
         }
+        
 
         /// <summary>
         /// Gets a specific movie by its Id
@@ -128,5 +129,6 @@ namespace Assignment3.Controllers
         {
             return _context.Movies.Any(e => e.Id == id);
         }
+
     }
 }
